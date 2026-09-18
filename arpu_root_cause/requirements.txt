@@ -1,0 +1,4 @@
+
+statsmodels>=0.14
+matplotlib>=3.7
+causalpy>=0.8
