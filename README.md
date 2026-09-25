@@ -44,3 +44,14 @@ Outputs:
 ## Notebook
 
 Open [notebooks/01_causal_sandbox.ipynb](notebooks/01_causal_sandbox.ipynb) in Jupyter. It prepares the units, runs all difficulty levels, ranks estimators by ATE error, and inspects heterogeneous effects. It uses only `numpy` and `pandas`, already available in `events/.venv`.
+
+## Weekly MMM
+
+[mmm.py](mmm.py) fits a weekly FTD marketing mix model from a CSV shaped as `week`, `FTDs`, `Channel_Spend_*`, and optional `Confounder_*`. It automatically detects channels and confounders, applies geometric adstock and Hill saturation to channel spend, controls for trend and annual seasonality, and uses chronological holdout validation to select the adstock parameter and ridge penalty. Media coefficients are constrained to be non-negative.
+
+```bash
+./events/.venv/bin/python causal_inference_sandbox/mmm.py path/to/weekly_data.csv \
+  --output-dir causal_inference_sandbox/outputs/mmm
+```
+
+It writes model parameters, weekly channel contributions, and per-spend ROI to the output directory. MMM measures associations under its modelling assumptions; confounders should include material demand, product, pricing, and measurement changes before interpreting channel contributions causally.
