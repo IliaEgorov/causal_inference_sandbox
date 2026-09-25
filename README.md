@@ -55,3 +55,16 @@ Open [notebooks/01_causal_sandbox.ipynb](notebooks/01_causal_sandbox.ipynb) in J
 ```
 
 It writes model parameters, weekly channel contributions, and per-spend ROI to the output directory. MMM measures associations under its modelling assumptions; confounders should include material demand, product, pricing, and measurement changes before interpreting channel contributions causally.
+
+### Start with the simple version
+
+[mmm_simple.py](mmm_simple.py) is the learning version: a plain linear regression on raw channel spend and optional confounders. It has no carry-over, diminishing returns, seasonality, regularisation, or non-negative constraints.
+
+```bash
+./events/.venv/bin/python causal_inference_sandbox/mmm_simple.py path/to/weekly_data.csv \
+  --output-dir causal_inference_sandbox/outputs/mmm_simple
+```
+
+Try it immediately with [data/weekly_mmm_example.csv](data/weekly_mmm_example.csv).
+
+Suggested upgrade sequence: add a trend and seasonal controls, add one adstock parameter, add saturation, then move to holdout validation and regularisation in `mmm.py`.
